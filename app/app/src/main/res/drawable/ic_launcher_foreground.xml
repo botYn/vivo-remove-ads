@@ -1,0 +1,21 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 盾牌 -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M54,26L30,36v18c0,15 10,26 24,30 14,-4 24,-15 24,-30V36L54,26z" />
+    <!-- 禁止斜杠 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,40h8v28h-8z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M52,40h14v8H52zM52,60h14v8H52z" />
+    <!-- 斜线 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,32h5L72,76h-5z" />
+</vector>

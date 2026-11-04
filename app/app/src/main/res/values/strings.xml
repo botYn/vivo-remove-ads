@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vivo 去广告</string>
+    <string name="title_rules">规则管理</string>
+    <string name="title_log">拦截日志</string>
+
+    <string name="accessibility_label">Vivo 去广告服务</string>
+    <string name="accessibility_description">用于拦截应用内的弹窗广告、开屏广告与摇一摇广告。开启后本应用会在检测到广告元素时自动点击关闭按钮或隐藏广告容器。</string>
+
+    <string name="status_on">服务运行中</string>
+    <string name="status_off">服务未开启</string>
+    <string name="enable_service">开启无障碍服务</string>
+    <string name="disable_service">关闭无障碍服务</string>
+
+    <string name="section_core">核心开关</string>
+    <string name="switch_global">启用拦截</string>
+    <string name="switch_global_desc">总开关，关闭后不再拦截任何广告</string>
+    <string name="switch_builtin">启用内置规则</string>
+    <string name="switch_builtin_desc">关闭后仅保留用户自定义规则</string>
+
+    <string name="section_tools">工具</string>
+    <string name="btn_rules">规则管理</string>
+    <string name="btn_rules_desc">查看内置规则、自定义规则、导入导出</string>
+    <string name="btn_log">拦截日志</string>
+    <string name="btn_log_desc">查看最近的拦截记录</string>
+    <string name="btn_battery">电池优化白名单</string>
+    <string name="btn_battery_desc">防止系统杀后台导致服务失效</string>
+
+    <string name="section_stats">统计</string>
+    <string name="stat_blocked">已拦截</string>
+    <string name="stat_rules">生效规则</string>
+    <string name="stat_device">目标设备</string>
+
+    <string name="btn_import">导入</string>
+    <string name="btn_export">导出</string>
+    <string name="btn_clear_log">清空</string>
+    <string name="btn_clear_rules">清空用户规则</string>
+
+    <string name="cd_back">返回</string>
+</resources>
