@@ -36,3 +36,11 @@ local.properties
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# Gradle
+app/.gradle/
+app/build/
+app/app/build/
+app/local.properties
+.gradle/
+
