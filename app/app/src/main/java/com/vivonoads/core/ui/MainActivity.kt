@@ -58,12 +58,15 @@ class MainActivity : AppCompatActivity() {
         bindTools()
         bindStats()
 
-        registerReceiver(
-            statusReceiver,
-            IntentFilter(AdBlockAccessibilityService.ACTION_STATUS_CHANGED),
-        )
+        // Android 14 (API 34) 要求动态注册的接收器显式声明导出标志
+        val filter = IntentFilter(AdBlockAccessibilityService.ACTION_STATUS_CHANGED)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(statusReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            @Suppress("UnspecifiedRegisterReceiverFlag")
+            registerReceiver(statusReceiver, filter)
+        }
     }
-
     override fun onResume() {
         super.onResume()
         serviceRunning = isAccessibilityEnabled()

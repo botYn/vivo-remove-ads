@@ -10,13 +10,21 @@ package com.vivonoads.core.rule
  */
 object BuiltinRules {
 
-    /** 关闭按钮的通用文案 */
-    private val CLOSE_TEXTS = listOf(
-        "关闭", "关闭广告", "跳过", "跳过广告", "跳过此广告", "不再显示",
-        "取消", "取消广告", "我知道了", "知道了", "稍后再说", "以后再说",
-        "暂不", "暂不开通", "残忍拒绝", "残忍离开", "继续浏览", "返回",
-        "忽略", "忽略此广告", "暂不需要", "下次再说", "稍后提醒",
-        "×", "✕", "✖", "X", "Close", "close", "Skip", "skip", "Cancel", "cancel",
+    /** 关闭按钮的强特征文案：只在广告场景出现，误点风险低 */
+    private val CLOSE_TEXTS_STRONG = listOf(
+        "关闭广告", "跳过广告", "跳过此广告", "关闭此广告", "不再显示",
+        "跳过", "关闭",
+        "×", "✕", "✖", "X",
+        "Close", "close", "Skip", "skip",
+        "忽略此广告", "关闭推广",
+    )
+
+    /** 关闭按钮的弱特征文案：正常界面也可能出现，需配合广告上下文 */
+    private val CLOSE_TEXTS_WEAK = listOf(
+        "取消", "取消广告", "返回", "我知道了", "知道了", "稍后再说", "以后再说",
+        "暂不", "暂不开通", "残忍拒绝", "残忍离开", "继续浏览",
+        "忽略", "暂不需要", "下次再说", "稍后提醒",
+        "Cancel", "cancel",
     )
 
     /** 广告相关的通用 viewId 关键词 */
@@ -28,9 +36,9 @@ object BuiltinRules {
     )
 
     /** 通用文案：明显的广告标记 */
-    private val AD_MARK_TEXTS = listOf(
+    val AD_MARK_TEXTS = listOf(
         "广告", "廣告", "广告位", "赞助内容", "推广", "promotion", "sponsored",
-        "Advertisement", "advertisement", "Ad", "ADS",
+        "Advertisement", "advertisement", "ADS", "Ad",
     )
 
     private fun closeTextRule(
@@ -43,7 +51,7 @@ object BuiltinRules {
         id = id,
         name = name,
         packageNames = packages,
-        textConditions = listOf(TextCondition(CLOSE_TEXTS, MatchType.EXACT)),
+        textConditions = listOf(TextCondition(CLOSE_TEXTS_STRONG, MatchType.EXACT)),
         action = action,
         builtin = true,
         note = note,
@@ -73,11 +81,21 @@ object BuiltinRules {
         // ---------------- 通用：文案关闭按钮 ----------------
         Rule(
             id = "generic_close_text",
-            name = "通用-关闭按钮文案",
-            textConditions = listOf(TextCondition(CLOSE_TEXTS, MatchType.EXACT)),
+            name = "通用-关闭按钮文案(强特征)",
+            textConditions = listOf(TextCondition(CLOSE_TEXTS_STRONG, MatchType.EXACT)),
             action = Action.CLICK_CLOSE,
             builtin = true,
-            note = "匹配「关闭 / 跳过 / 稍后再说」等常见广告关闭文案",
+            note = "匹配「关闭广告 / 跳过广告 / ×」等广告专属关闭文案，误点风险低",
+        ),
+
+        Rule(
+            id = "generic_close_text_weak",
+            name = "通用-关闭按钮文案(弱特征)",
+            textConditions = listOf(TextCondition(CLOSE_TEXTS_WEAK, MatchType.EXACT)),
+            action = Action.CLICK_CLOSE,
+            requiresAdContext = true,
+            builtin = true,
+            note = "匹配「取消 / 返回 / 稍后再说」，仅当界面出现「广告」标记时才执行",
         ),
 
         // ---------------- 通用：广告标记文本 + 父容器移除 ----------------

@@ -161,8 +161,8 @@ class RuleRepository private constructor(context: Context) {
         name = obj.optString("name"),
         packageNames = obj.optJSONArray("packages").toStringSet(),
         textConditions = obj.optJSONArray("text").toConditions(),
-        idConditions = obj.optJSONArray("ids").toConditions(),
-        classConditions = obj.optJSONArray("classes").toConditions(),
+        idConditions = obj.optJSONArray("ids").toIdConditions(),
+        classConditions = obj.optJSONArray("classes").toClassConditions(),
         action = try {
             Action.valueOf(obj.optString("action", "CLICK_CLOSE"))
         } catch (_: Exception) {
@@ -183,6 +183,40 @@ class RuleRepository private constructor(context: Context) {
         return (0 until length()).mapNotNull { i ->
             val o = optJSONObject(i) ?: return@mapNotNull null
             TextCondition(
+                patterns = o.optJSONArray("patterns").toStringSet().toList(),
+                matchType = try {
+                    MatchType.valueOf(o.optString("type", "CONTAINS"))
+                } catch (_: Exception) {
+                    MatchType.CONTAINS
+                },
+                negative = o.optBoolean("negative", false),
+            )
+        }
+    }
+
+    /** 读取 IdCondition 列表。 */
+    private fun JSONArray?.toIdConditions(): List<IdCondition> {
+        if (this == null) return emptyList()
+        return (0 until length()).mapNotNull { i ->
+            val o = optJSONObject(i) ?: return@mapNotNull null
+            IdCondition(
+                patterns = o.optJSONArray("patterns").toStringSet().toList(),
+                matchType = try {
+                    MatchType.valueOf(o.optString("type", "CONTAINS"))
+                } catch (_: Exception) {
+                    MatchType.CONTAINS
+                },
+                negative = o.optBoolean("negative", false),
+            )
+        }
+    }
+
+    /** 读取 ClassCondition 列表。 */
+    private fun JSONArray?.toClassConditions(): List<ClassCondition> {
+        if (this == null) return emptyList()
+        return (0 until length()).mapNotNull { i ->
+            val o = optJSONObject(i) ?: return@mapNotNull null
+            ClassCondition(
                 patterns = o.optJSONArray("patterns").toStringSet().toList(),
                 matchType = try {
                     MatchType.valueOf(o.optString("type", "CONTAINS"))

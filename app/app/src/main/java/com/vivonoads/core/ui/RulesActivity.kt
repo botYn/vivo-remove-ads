@@ -104,8 +104,10 @@ class RulesActivity : AppCompatActivity() {
      * 规则列表适配器。
      */
     inner class RuleAdapter(
-        private val items: MutableList<Rule>,
+        items: List<Rule>,
     ) : RecyclerView.Adapter<RuleAdapter.VH>() {
+
+        private val items: MutableList<Rule> = items.toMutableList()
 
         fun submit(newItems: List<Rule>) {
             items.clear()

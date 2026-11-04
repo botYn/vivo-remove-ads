@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>广告拦截测试</title>
+<style>
+  body { margin:0; font-family:sans-serif; background:#111; color:#eee; }
+  .status { padding:16px; font-size:18px; }
+  .ad-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,.92);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .ad-label { font-size:14px; color:#888; margin-bottom:8px; }
+  .ad-title { font-size:28px; margin:20px 0; }
+  button {
+    font-size:20px; padding:14px 40px; border-radius:30px;
+    border:none; background:#2E7D32; color:#fff;
+  }
+  #result { margin-top:24px; font-size:22px; color:#4CAF50; }
+</style>
+</head>
+<body>
+
+<div class="ad-overlay" id="ad">
+  <div class="ad-label">广告</div>
+  <div class="ad-title">这是一个模拟开屏广告</div>
+  <button id="skipBtn" onclick="onSkip()">跳过广告</button>
+</div>
+
+<div class="status">
+  <div>等待自动点击「跳过广告」…</div>
+  <div id="result"></div>
+</div>
+
+<script>
+  const t0 = Date.now();
+  function onSkip() {
+    document.getElementById('ad').style.display = 'none';
+    const ms = Date.now() - t0;
+    document.getElementById('result').textContent =
+      '✅ 已被自动点击，耗时 ' + (ms / 1000).toFixed(2) + ' 秒';
+    document.title = 'SKIPPED_AT_' + ms;
+  }
+  // 暴露一个全局标记，便于外部检测
+  window.__skipped = false;
+</script>
+</body>
+</html>

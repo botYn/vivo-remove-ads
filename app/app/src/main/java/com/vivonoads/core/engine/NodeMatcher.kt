@@ -142,7 +142,8 @@ object NodeMatcher {
                 if (!matches(rule, node)) continue
 
                 val score = score(node, depth)
-                if (best == null || score > best.score) {
+                val current = best
+                if (current == null || score > current.score) {
                     best = MatchResult(rule, node, score, depth)
                 }
             }
@@ -160,6 +161,54 @@ object NodeMatcher {
 
         walk(root, 0)
         return best
+    }
+
+    /**
+     * 判断整棵树中是否存在"广告"标记文本。
+     *
+     * 用于给弱特征规则增加上下文约束。
+     */
+    fun hasAdContext(root: AccessibilityNodeInfo): Boolean {
+        val markers = com.vivonoads.core.rule.BuiltinRules.AD_MARK_TEXTS
+
+        fun walk(node: AccessibilityNodeInfo): Boolean {
+            val text = node.text?.toString()
+            val desc = node.contentDescription?.toString()
+            for (m in markers) {
+                if (text != null && text.contains(m, ignoreCase = true)) return true
+                if (desc != null && desc.contains(m, ignoreCase = true)) return true
+            }
+            for (i in 0 until node.childCount) {
+                val child = try {
+                    node.getChild(i)
+                } catch (_: Exception) {
+                    continue
+                } ?: continue
+                val hit = walk(child)
+                child.recycle()
+                if (hit) return true
+            }
+            return false
+        }
+
+        return walk(root)
+    }
+
+    /**
+     * 统计节点总数，用于诊断。
+     */
+    fun countNodes(root: AccessibilityNodeInfo): Int {
+        var count = 1
+        for (i in 0 until root.childCount) {
+            val child = try {
+                root.getChild(i)
+            } catch (_: Exception) {
+                continue
+            } ?: continue
+            count += countNodes(child)
+            child.recycle()
+        }
+        return count
     }
 
     /**

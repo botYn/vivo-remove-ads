@@ -14,11 +14,17 @@ out/
 *.aab
 *.idsig
 
+# Gradle
+.gradle/
+app/.gradle/
+app/build/
+app/app/build/
+app/local.properties
+
 # 反编译中间产物
 tmp/
 work/
 decoded/
-res/  # 仅当由脚本临时解包产生
 
 # 签名 / 密钥
 *.jks
@@ -26,6 +32,11 @@ res/  # 仅当由脚本临时解包产生
 *.p12
 keystore.properties
 local.properties
+
+# 研究资料（体积大，不入库）
+research/dumps/
+research/*.apk
+research/*.png
 
 # IDE
 .idea/
@@ -36,11 +47,3 @@ local.properties
 Thumbs.db
 .DS_Store
 desktop.ini
-
-# Gradle
-app/.gradle/
-app/build/
-app/app/build/
-app/local.properties
-.gradle/
-

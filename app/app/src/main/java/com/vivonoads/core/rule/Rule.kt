@@ -25,6 +25,12 @@ data class Rule(
     val enabled: Boolean = true,
     /** 内置规则不可删除 */
     val builtin: Boolean = false,
+    /**
+     * 是否要求当前界面存在"广告"标记才执行。
+     *
+     * 用于「取消」「返回」「稍后再说」这类弱特征文案，避免在正常界面误点。
+     */
+    val requiresAdContext: Boolean = false,
     /** 备注说明 */
     val note: String = "",
 ) {

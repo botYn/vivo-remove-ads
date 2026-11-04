@@ -33,7 +33,7 @@ class LogActivity : AppCompatActivity() {
 
         val list = findViewById<RecyclerView>(R.id.logList)
         list.layoutManager = LinearLayoutManager(this)
-        adapter = LogAdapter(AdLog.snapshot())
+        adapter = LogAdapter(AdLog.snapshot().toMutableList())
         list.adapter = adapter
 
         AdLog.onNewEntry = { entry ->
@@ -57,8 +57,10 @@ class LogActivity : AppCompatActivity() {
      * 日志适配器。
      */
     inner class LogAdapter(
-        private val items: MutableList<AdLog.Entry>,
+        items: MutableList<AdLog.Entry>,
     ) : RecyclerView.Adapter<LogAdapter.VH>() {
+
+        private val items: MutableList<AdLog.Entry> = items.toMutableList()
 
         fun submit(newItems: List<AdLog.Entry>) {
             items.clear()
