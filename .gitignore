@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 构建产物
+dist/
+build/
+out/
+*.apk
+*.apks
+*.aab
+*.idsig
+
+# 反编译中间产物
+tmp/
+work/
+decoded/
+res/  # 仅当由脚本临时解包产生
+
+# 签名 / 密钥
+*.jks
+*.keystore
+*.p12
+keystore.properties
+local.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# 系统
+Thumbs.db
+.DS_Store
+desktop.ini

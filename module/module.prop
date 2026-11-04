@@ -1,0 +1,7 @@
+id=remove_vivo_ads
+name=Vivo 去广告模块
+version=v1.0.0
+versionCode=10000
+author=botYn
+description=清理 vivo / iQOO 系统预置广告组件（研究用途）
+updateJson=
