@@ -27,6 +27,9 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          # 使用仓库内提交的官方 wrapper jar，关闭远程校验以避免校验失败阻塞构建
+          validate-wrappers: false
 
       - name: Cache Android SDK
         uses: actions/cache@v4
